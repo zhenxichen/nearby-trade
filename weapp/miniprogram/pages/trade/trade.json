@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "van-cell-group": "../../dist/vant/cell-group/index",
+    "van-cell": "../../dist/vant/cell/index",
+    "van-popup": "../../dist/vant/popup/index",
+    "van-datetime-picker": "../../dist/vant/datetime-picker/index",
+    "van-image": "../../dist/vant/image/index",
+    "van-notice-bar": "../../dist/vant/notice-bar/index",
+    "van-button": "../../dist/vant/button/index",
+    "van-tabs": "../../dist/vant/tabs/index",
+    "van-tab": "../../dist/vant/tab/index",
+    "van-field": "../../dist/vant/field/index",
+    "van-uploader": "../../dist/vant/uploader/index",
+    "i-message": "../../dist/iview/message/index"
+  }
+}

@@ -1,0 +1,16 @@
+<!--pages/location/location.wxml-->
+<view class="search-bar">
+    <van-search
+        model:value="{{ search }}"
+        bind:search="getSuggestion"
+        use-action-slot
+    >
+        <view slot="action" bindtap="getSuggestion">搜索</view>
+    </van-search>
+</view>
+
+<view wx:for="{{ poiList }}" wx:key="index">
+    <van-cell id="{{index}}"
+        title="{{ item.title }}" label="{{ item.address }}" 
+        clickable bind:click="backfill" />
+</view>

@@ -1,0 +1,66 @@
+<!--pages/sell/sell.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+
+
+<view class="input-area">
+    <textarea placeholder="请输入物品详情" 
+        model:value="{{ description }}"
+        class="input" placeholder-class="placeholder"
+        maxlength="-1"
+    />
+</view>
+
+<view class="upload-area">
+    <van-uploader 
+        file-list="{{ imageList }}" 
+        max-count="8"
+        deletable multiple
+        bind:after-read="afterRead"
+        bind:delete="deleteImage"
+    />
+</view>
+
+
+<view class="bottom-bar">   
+    <van-cell
+        title="交易地点" isLink
+        value="{{ location.title }}"
+        bind:click="chooseLocation"
+    >
+        <van-icon name="location" slot="icon"
+            size="16px" custom-style="margin-right: 4px;" />
+    </van-cell>
+    <van-cell 
+        title="支持交换"
+        bind:click="toggle"
+        clickable
+    >
+        <van-icon name="bag" slot="icon"
+            size="16px" custom-style="margin-right: 4px;" />
+        <van-checkbox 
+            slot="right-icon"
+            class="checkbox"
+            value="{{ exchange }}" 
+            checked-color="#39b54a"
+            icon-size="16px"
+            bind:change="onCheckboxChange"
+            catch:tap="noop"
+        />
+    </van-cell>
+    <van-field 
+        left-icon="gold-coin" isLink
+        label="预期价格" model:value="{{ price }}"
+        input-align="right" placeholder="请输入商品价格"
+        type="number"
+    />
+    <view class="btn-bar">
+        <van-button custom-class="btn"
+            bind:click="onSubmit"
+        >
+            {{ edit ? '编辑' : '发布' }}
+        </van-button>
+    </view>
+    <view class="ios-white" />
+</view>
+
+<i-message id="message" />

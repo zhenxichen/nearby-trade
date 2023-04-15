@@ -1,0 +1,15 @@
+{
+  "usingComponents": {
+    "i-avatar": "../../dist/iview/avatar/index",
+    "i-message": "../../dist/iview/message/index",
+    "van-icon": "../../dist/vant/icon/index",
+    "van-rate": "../../dist/vant/rate/index",
+    "van-tab": "../../dist/vant/tab/index",
+    "van-tabs": "../../dist/vant/tabs/index",
+    "van-swipe-cell": "../../dist/vant/swipe-cell/index",
+    "van-cell": "../../dist/vant/cell/index",
+    "van-cell-group": "../../dist/vant/cell-group/index",
+    "com-card": "../../components/commodityCard/index"
+  },
+  "enablePullDownRefresh": true
+}

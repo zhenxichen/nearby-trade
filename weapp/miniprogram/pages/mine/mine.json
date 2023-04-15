@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "i-avatar": "../../dist/iview/avatar/index",
+    "i-message": "../../dist/iview/message/index",
+    "van-empty": "../../dist/vant/empty/index",
+    "van-cell": "../../dist/vant/cell/index",
+    "van-notify": "../../dist/vant/goods-action-button/index"
+  },
+  "enablePullDownRefresh": true
+}

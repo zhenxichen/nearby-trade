@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxchen.nearby.order.mapper.CommodityMapper">
+
+    <resultMap id="CacheResult" type="com.zxchen.nearby.order.domain.dto.CommodityCache">
+        <id property="cid" column="cid" />
+        <result property="image" column="image" />
+        <result property="title" column="title" />
+        <result property="sellerId" column="seller_id" />
+    </resultMap>
+
+    <resultMap id="CommodityListResult" type="com.zxchen.nearby.order.domain.dao.CommodityListDao">
+        <id property="cid" column="cid" />
+        <result property="image" column="image" />
+        <result property="title" column="title" />
+        <result property="sellerId" column="seller_id" />
+        <result property="sellerName" column="seller_name" />
+        <result property="sellerAvatar" column="seller_avatar" />
+        <result property="distance" column="distance" />
+    </resultMap>
+
+    <resultMap id="CommodityDetailResult" type="com.zxchen.nearby.order.domain.dao.CommodityDetailDao">
+        <id property="cid" column="cid" />
+        <result property="description" column="description" />
+        <result property="images" column="images" />
+        <result property="latitude" column="latitude" />
+        <result property="longitude" column="longitude" />
+        <result property="location" column="location" />
+        <result property="address" column="address" />
+        <result property="exchange" column="exchange" />
+        <result property="price" column="price" />
+        <result property="sellerId" column="seller_id" />
+        <result property="sellerName" column="seller_name" />
+        <result property="sellerAvatar" column="seller_avatar" />
+        <result property="time" column="time" />
+        <result property="offShelf" column="off_shelf" />
+    </resultMap>
+
+    <insert id="insertCommodity" parameterType="com.zxchen.nearby.order.domain.dao.CommodityDao"
+            useGeneratedKeys="true" keyProperty="cid" keyColumn="cid">
+        INSERT INTO commodity (`description`, `location_point`, `location_geohash`,
+                               `location_title`, `location_address`,
+                               `exchange`, `price`, `images`, `seller_id`)
+        VALUES (#{description}, POINT(#{longitude}, #{latitude}), ST_GEOHASH(#{longitude}, #{latitude}, 20),
+                #{locationTitle}, #{locationAddress}, #{exchange}, #{price}, #{images}, #{sellerId})
+    </insert>
+
+    <select id="selectCommodityCache" parameterType="Long" resultMap="CacheResult">
+        SELECT c.cid as `cid`, SUBSTRING_INDEX(c.images, ';', 1) as `image`,
+               SUBSTRING(c.`description`, 1, 50) as `title`,
+               u.uid as `seller_id`
+        FROM commodity c
+                 JOIN sys_user u ON c.seller_id = u.uid
+        WHERE c.cid = #{cid}
+    </select>
+
+    <select id="selectCommodityListByLike"
+            parameterType="com.zxchen.nearby.order.domain.dao.CommodityLikeDao"
+            resultMap="CommodityListResult">
+        SELECT c.`cid` as `cid`, SUBSTRING_INDEX(c.images, ';', 1) as `image`,
+                SUBSTRING(c.`description`, 1, 50) as `title`,
+                u.uid as `seller_id`, u.username as `seller_name`, u.avatar as `seller_avatar`,
+                ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), `location_point`) as `distance`
+        FROM commodity c
+                JOIN sys_user u ON c.seller_id = u.uid
+        WHERE ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), `location_point`) &lt;= #{radius}
+        AND c.`status` = 0
+        AND u.uid != #{uid}
+        <foreach collection="keywords" index="index" item="keyword"
+                 open="AND " close="" separator=" AND ">
+            c.`description` LIKE CONCAT('%', #{keyword,jdbcType=VARCHAR}, '%')
+        </foreach>
+    </select>
+
+    <select id="selectCommodityListByMatch"
+            parameterType="com.zxchen.nearby.order.domain.dto.CommodityFindDto"
+            resultMap="CommodityListResult">
+        SELECT c.`cid` as `cid`, SUBSTRING_INDEX(c.images, ';', 1) as `image`,
+                SUBSTRING(c.`description`, 1, 50) as `title`,
+                u.uid as `seller_id`, u.username as `seller_name`, u.avatar as `seller_avatar`,
+                ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), `location_point`) as `distance`
+        FROM commodity c
+                JOIN sys_user u ON c.seller_id = u.uid
+        WHERE ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), `location_point`) &lt;= #{radius}
+                AND c.`status` = 0
+                AND u.uid != #{uid}
+                AND MATCH (c.`description`) AGAINST (#{keyword})
+    </select>
+
+    <select id="selectCommodityDetail" parameterType="Long" resultMap="CommodityDetailResult">
+        SELECT c.`cid`                  as `cid`,
+               c.`description`          as `description`,
+               c.`images`               as `images`,
+               ST_Y(c.`location_point`) as `latitude`,
+               ST_X(c.`location_point`) as `longitude`,
+               c.`location_title`       as `location`,
+               c.`location_address`     as `address`,
+               c.`exchange`             as `exchange`,
+               c.`price`                as `price`,
+               c.`seller_id`            as `seller_id`,
+               u.`username`             as `seller_name`,
+               u.`avatar`               as `seller_avatar`,
+               c.`time`                 as `time`,
+               c.`status`               as `off_shelf`
+        FROM commodity c
+                 JOIN sys_user u ON c.seller_id = u.uid
+        WHERE cid = #{cid}
+    </select>
+
+    <select id="selectSellImages" parameterType="Long" resultType="String">
+        SELECT SUBSTRING_INDEX(images, ';', 1)
+        FROM commodity
+        WHERE `status` = 0 AND `seller_id` = #{uid}
+        ORDER BY `time` DESC
+        LIMIT 3
+    </select>
+
+    <select id="selectOnSellList"
+            parameterType="com.zxchen.nearby.order.domain.dto.OnSellListDto"
+            resultMap="CommodityListResult">
+        SELECT
+            c.`cid` as `cid`,
+            SUBSTRING_INDEX(c.images, ';', 1) as `image`,
+            SUBSTRING(c.`description`, 1, 50) as `title`,
+            u.uid as `seller_id`,
+            u.username as `seller_name`,
+            u.avatar as `seller_avatar`,
+            ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), c.`location_point`) as `distance`
+        FROM commodity c
+                 JOIN sys_user u ON c.seller_id = u.uid
+        WHERE c.seller_id = #{uid} AND c.`status` = 0
+        ORDER BY c.`time` DESC
+    </select>
+
+    <update id="updateCommodityStatusToOnSell" parameterType="Long">
+        UPDATE commodity
+        SET `status` = 0
+        WHERE cid = #{cid}
+    </update>
+
+    <update id="updateCommodityStatusToOffShelf" parameterType="Long">
+        UPDATE commodity
+        SET `status` = 1
+        WHERE cid = #{cid}
+    </update>
+
+    <select id="checkCommodityIsOnSell" parameterType="Long" resultType="int">
+        SELECT COUNT(1) FROM commodity
+        WHERE cid = #{cid} AND `status` = 0
+    </select>
+
+    <select id="checkCommodityCouldExchange" parameterType="Long" resultType="int">
+        SELECT COUNT(1)
+        FROM commodity
+        WHERE cid = #{cid} AND `exchange` = 1
+    </select>
+
+    <update id="updateCommodity" parameterType="com.zxchen.nearby.order.domain.dao.CommodityDao">
+        UPDATE commodity
+        SET description = #{description},
+            location_point = POINT(#{longitude}, #{latitude}),
+            location_geohash = ST_GEOHASH(#{longitude}, #{latitude}, 20),
+            location_title = #{locationTitle},
+            exchange = #{exchange},
+            price = #{price},
+            images = #{images},
+            time = SYSDATE()
+        WHERE cid = #{cid} AND seller_id = #{sellerId}
+    </update>
+
+    <select id="selectTradePageInfo" parameterType="Long"
+            resultType="com.zxchen.nearby.order.domain.vo.CommodityTradeVo">
+        SELECT cid, description, SUBSTRING_INDEX(images, ';', 1) as `image`, exchange
+        FROM commodity
+        WHERE cid = #{cid}
+    </select>
+
+</mapper>

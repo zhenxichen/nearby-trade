@@ -1,0 +1,68 @@
+<!--components/orderCard/index.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+
+<view class="order-card" bindtap="onClick">
+    <view class="top">
+        <view class="type">{{ isSeller ? '出售' : '购买' }}</view>
+        <view class="status">{{ status }}</view>
+    </view>
+    <view class="content">
+        <view class="image">
+            <van-image 
+                src="{{ image }}" 
+                width="60px" height="60px"
+                fit="fill"
+                radius="5px"
+            />
+        </view>
+        <view class="title">
+            {{ title }}
+        </view>
+        <view class="price" wx:if="{{ !exchange }}">
+            ￥{{ format.toFixedTwo(price) }}
+        </view>
+        <view class="tags" wx:else>
+            <van-tag color="#39b54a" size="medium" round>换</van-tag>
+        </view>
+    </view>
+    <view class="bottom">
+        <van-button wx:if="{{status === '进行中'}}"
+            size="small" round color="#39b54a"
+            bind:click="onConfirmClick"
+            catchtap="catchTap"
+        >
+            确认结单
+        </van-button>
+        <van-button wx:if="{{status === '待接单' && isSeller}}"
+            size="small" round color="#39b54a"
+            bind:click="onConfirmCreateClick"
+            catchtap="catchTap"
+        >
+            确认接单
+        </van-button>
+        <van-button wx:if="{{rate}}"
+            size="small" color="#39b54a"
+            plain round
+            bind:click="onRateClick"
+            catchtap="catchTap"
+        >
+            评价对方
+        </van-button>
+        <van-button
+            size="small" color="#39b54a"
+            plain round
+            bind:click="onContactClick"
+            catchtap="catchTap"
+        >
+            联系对方
+        </van-button>
+        <van-button wx:if="{{status !== '已完成' && status !== '已关闭'}}"
+            size="small" color="#808080"
+            plain round
+            bind:click="onCancelClick"
+            catchtap="catchTap"
+        >
+            取消订单
+        </van-button>
+    </view>
+</view>

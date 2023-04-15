@@ -1,0 +1,37 @@
+/* pages/chat/chat.wxss */
+
+/** 
+* 部分引入Color UI的聊天相关CSS样式
+* 可见https://github.com/weilanwl/ColorUI
+*/
+
+@import '../../colorui/main.wxss';
+@import '../../colorui/icon.wxss';
+
+.main-content {
+  padding-bottom: 60px;
+}
+
+.input-bar {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.input-field {
+  width: 100%;
+}
+
+.send-btn {
+  width: 160rpx;
+  max-width: 160rpx;
+  font-weight: 400;
+}
+
+.action-sheet {
+  z-index: 1025;
+  width: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.actions {
+  background-color: #ffffff;
+}

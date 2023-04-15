@@ -1,0 +1,31 @@
+/* pages/rate/rate.wxss */
+
+page {
+  background-color: white;
+}
+
+.rate-bar {
+  padding-top: 200rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input-area {
+  padding-top: 50rpx;
+}
+
+.input-area .input {
+  height: 400rpx;
+  width: 80%;
+  margin-left: 10%;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  background-color: #eee;
+}
+
+.submit-area {
+  display: flex;
+  justify-content: center;
+  padding-top: 300px;
+}

@@ -1,0 +1,101 @@
+<!-- pages/chat/chat.wxml -->
+<!-- 消息 -->
+<view class="main-content cu-chat" id="chat-page">
+    <view wx:for="{{ messageList }}" wx:key="index">
+        <!-- 我发送的消息 -->
+        <view wx:if="{{ item.uid == myUid }}">
+            <!-- 文字消息 -->
+            <view class="cu-item self" wx:if="{{ item.type === 'text' }}">
+                <view class="main">
+                    <view class="content bg-green shadow">
+                        <text>{{ item.content }}</text>
+                    </view>
+                </view>
+                <view class="cu-avatar radius" style="background-image:url({{myAvatar}});"></view>
+                <view class="date">{{ item.time }}</view>
+            </view>
+            <!-- 图片消息 -->
+            <view class="cu-item self" wx:if="{{ item.type === 'image' }}">
+                <view class="main" bindtap="handleImageClick" data-content="{{ item.content }}">
+                    <image src="{{ item.content }}" class="radius" mode="widthFix" />
+                </view>
+                <view class="cu-avatar radius" style="background-image:url({{myAvatar}});"></view>
+                <view class="date">{{ item.time }}</view>
+            </view>
+            <!-- 位置消息 -->
+            <view class="cu-item self" wx:if="{{ item.type === 'location' }}">
+                <view class="main" bindtap="handleLocationClick" data-content="{{ item.content }}">
+                    <map 
+                        longitude="{{ item.content.lng }}"  latitude="{{ item.content.lat }}"
+                        markers="{{ [{ latitude: item.content.lat, longitude: item.content.lng, title: item.content.title }] }}"
+                        enable-scroll="{{ false }}" enable-zoom="{{ false }}"
+                    />
+                </view>
+                <view class="cu-avatar radius" style="background-image:url({{myAvatar}});"></view>
+                <view class="date">{{ item.time }}</view>
+            </view>
+        </view>
+        <!-- 对方发送的消息 -->
+        <view wx:else>
+            <!-- 文字消息 -->
+            <view class="cu-item" wx:if="{{ item.type === 'text' }}">
+                <view class="cu-avatar radius" style="background-image:url({{oppositeAvatar}});"></view>
+                <view class="main">
+                    <view class="content bg-grey shadow">
+                        <text>{{item.content}}</text>
+                    </view>
+                    <view class="date">{{ item.time }}</view>
+                </view>
+            </view>
+            <!-- 图片消息 -->
+            <view class="cu-item" wx:if="{{ item.type === 'image' }}">
+                <view class="cu-avatar radius" style="background-image:url({{oppositeAvatar}});"></view>
+                <view class="main" bindtap="handleImageClick" data-content="{{ item.content }}">
+                    <image src="{{ item.content }}" class="radius" mode="widthFix" />
+                </view>
+                <view class="date">{{ item.time }}</view>
+            </view>
+            <!-- 位置消息 -->
+            <view class="cu-item" wx:if="{{ item.type === 'location' }}">
+                <view class="cu-avatar radius" style="background-image:url({{oppositeAvatar}});"></view>
+                <view class="main" bindtap="handleLocationClick" data-content="{{ item.content }}">
+                    <map 
+                        longitude="{{ item.content.lng }}"  latitude="{{ item.content.lat }}"
+                        markers="{{ [{ latitude: item.content.lat, longitude: item.content.lng, title: item.content.title }] }}"
+                        enable-scroll="{{ false }}" enable-zoom="{{ false }}"
+                    />
+                </view>
+                <view class="date">{{ item.time }}</view>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 下方输入框 -->
+<view class="cu-bar foot input input-bar">
+    <view class="action">
+        <text class="cuIcon-add text-grey" bindtap="handleAdd"></text>
+    </view>
+    <view class="input-field">
+        <van-field model:value="{{inputValue}}" 
+            type="textarea"
+            autosize
+            bind:confirm="handleSubmit"
+        >
+            <button slot="button" class="cu-btn bg-green shadow send-btn" 
+                bindtap="handleSubmit">
+                发送
+            </button>
+        </van-field>
+    </view>
+</view>
+
+<van-action-sheet
+    class="action-sheet"
+    show="{{ showActionSheet }}"
+    actions="{{ actionSheetList }}"
+    cancel-text="取消"
+    bind:select="handleActionSheetClick"
+    bind:cancel="handleActionSheetCancel"
+    bind:click-overlay="handleActionSheetCancel"
+/>

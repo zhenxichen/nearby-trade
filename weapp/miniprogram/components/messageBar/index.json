@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "i-cell": "../../dist/iview/cell/index",
+        "i-avatar": "../../dist/iview/avatar/index",
+        "i-badge": "../../dist/iview/badge/index"
+    }
+}

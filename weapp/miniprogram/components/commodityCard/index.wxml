@@ -1,0 +1,19 @@
+<!--components/commodityCard/index.wxml-->
+
+<view class="commodity-card" bindtap="handleClick">
+    <van-card thumb="{{image}}">
+        <view slot="title" class="title-container">
+            <view class="title">{{title}}</view>
+        </view>
+        <view slot="bottom" class="footer">
+            <view class="seller-container">
+                <i-avatar src="{{avatar}}" shape="circle" size="small"></i-avatar>
+                <view class="seller-name">{{seller}}</view>
+            </view>
+            <view class="distance-container" wx:if="{{distance !== ''}}">
+                <van-icon name="location-o" size="10px"/>
+                <view class="distance">{{distance}}</view>
+            </view>
+        </view>
+    </van-card>
+</view>

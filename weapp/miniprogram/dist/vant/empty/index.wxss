@@ -1,0 +1,49 @@
+@import '../common/index.wxss';
+
+/* 对van-empty的样式进行了调整，使其大小符合业务需求
+ * 原始样式可见https://github.com/youzan/vant-weapp/blob/dev/dist/empty/index.wxss
+ */
+
+.van-empty {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 0;
+}
+
+.van-empty__image {
+  height: 40px;
+  width: 40px;
+}
+
+.van-empty__image:empty {
+  display: none;
+}
+
+.van-empty__image__img {
+  height: 100%;
+  width: 100%;
+}
+
+.van-empty__image:not(:empty)+.van-empty__image {
+  display: none;
+}
+
+.van-empty__description{
+  color: #969799;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 30px;
+  padding: 0 60px;
+}
+
+.van-empty__description:empty,
+.van-empty__description:not(:empty)+.van-empty__description {
+  display: none;
+}
+
+.van-empty__bottom {
+  margin-top: 24px;
+}

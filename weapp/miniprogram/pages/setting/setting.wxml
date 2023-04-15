@@ -1,0 +1,111 @@
+<!--pages/setting/setting.wxml-->
+<view class="settings">
+    <van-cell-group inset>
+        <van-cell title="头像" isLink bind:click="handleAvatar">
+            <view class="avatar">
+                <i-avatar src="{{ avatar }}" size="small"></i-avatar>
+            </view>
+        </van-cell>
+        <van-cell title="用户名" value="{{ username }}"
+            isLink bind:click="handleUsername" />
+        <van-cell title="账号密码" value="修改" 
+            isLink bind:click="handlePassword" />
+        <van-cell title="手机号" value="{{ phone }}" 
+            isLink bind:click="handlePhone" />
+        <van-cell title="微信账号" value="{{ bindWechat ? '解绑' : '绑定' }}" 
+            isLink bind:click="handleWechat" />
+    </van-cell-group>
+</view>
+
+<view class="bottom" bindtap="handleLogOut">
+    <view class="content">退出当前账号</view>
+    <view class="ios-white" />
+</view>
+
+<view class="username-dialog">
+    <van-dialog 
+        show="{{ showUserNameDialog }}"
+        title="修改用户名" width="300"
+        confirm-button-color="#39b54a"
+        show-cancel-button
+        use-slot close-on-click-overlay
+        bind:confirm="changeUsername"
+    >
+        <van-field 
+            model:value="{{ newUsername }}" 
+            placeholder="请输入新的用户名" 
+        />
+    </van-dialog>
+</view>
+
+<view class="pwd-dialog">
+    <van-dialog
+        show="{{ showPwdDialog }}"
+        title="修改密码" width="300"
+        confirm-button-color="#39b54a"
+        show-cancel-button
+        use-slot close-on-click-overlay
+        bind:confirm="changePassword"
+    >
+        <van-cell-group>
+            <van-field 
+                model:value="{{ oldPassword }}"
+                placeholder="请输入旧的密码"
+                password
+            />
+            <van-field 
+                model:value="{{ newPassword }}"
+                placeholder="请输入新的密码"
+                password
+            />
+        </van-cell-group>
+    </van-dialog>
+</view>
+
+<view class="phone-dialog">
+    <van-dialog
+        show="{{ showPhoneDialog }}"
+        title="修改手机号" width="300"
+        confirm-button-color="#39b54a"
+        show-cancel-button
+        use-slot close-on-click-overlay
+        bind:confirm="changePhone"
+    >
+        <van-cell-group>
+            <van-field 
+                model:value="{{ oldPhone }}"
+                label="原手机号"
+                placeholder="请输入原手机号"
+            />
+            <van-field 
+                model:value="{{ captcha }}"
+                label="短信验证码"
+                placeholder="请输入验证码"
+                clearable
+                use-button-slot
+            >    
+                <van-button wx:if="{{ !showCountDown }}"
+                    slot="button" size="small" type="primary"
+                    custom-style="width: 150rpx; font-size: 11px; font-weight: 500;"
+                    bind:click="sendCaptcha" disabled="{{ oldPhone.length !== 11 }}"
+                >
+                    发送验证码
+                </van-button>
+                <van-button wx:else
+                    slot="button" size="small" type="primary"
+                    disabled
+                >
+                    <van-count-down time="{{ 60000 }}" 
+                        format=" ss 秒后再试"
+                        bind:finish="onCountDownFinish"
+                    />
+                </van-button>
+            </van-field>
+            <van-field 
+                model:value="{{ newPhone }}"
+                label="新手机号"
+                placeholder="请输入新手机号"
+            />
+        </van-cell-group>
+    </van-dialog>
+</view>

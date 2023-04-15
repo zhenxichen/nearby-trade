@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "i-avatar": "../../dist/iview/avatar/index",
+    "i-message": "../../dist/iview/message/index",
+    "van-icon": "../../dist/vant/icon/index",
+    "van-image":"../../dist/vant/image/index",
+    "van-button": "../../dist/vant/button/index"
+  },
+  "enablePullDownRefresh": true
+}

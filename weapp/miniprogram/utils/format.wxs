@@ -1,0 +1,27 @@
+// utils/format.wxs
+
+var format = {
+    // 保留两位小数
+    toFixedTwo: function(value) {
+        return value.toFixed(2);
+    },
+    // 保留 digit 位小数
+    toFixed: function(value, digits) {
+        return value.toFixed(digits)
+    },
+    // 转为字符串
+    toString: function(value) {
+        return value.toString();
+    },
+    // 转为数字
+    toNumber: function(value) {
+        return value.toNumber();
+    }
+}
+
+module.exports = {
+    toFixedTwo: format.toFixedTwo,
+    toFixed: format.toFixed,
+    toString: format.toString,
+    toNumber: format.toNumber
+}

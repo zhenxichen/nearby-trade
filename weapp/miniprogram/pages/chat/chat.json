@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-field": "../../dist/vant/field/index",
+    "van-button": "../../dist/vant/button/index",
+    "van-action-sheet": "../../dist/vant/action-sheet/index"
+  }
+}

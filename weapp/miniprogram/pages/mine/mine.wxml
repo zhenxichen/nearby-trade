@@ -1,0 +1,57 @@
+<!--pages/mine/mine.wxml-->
+<view class="mine">
+    <view class="info-bar" bindtap="personalInfo">
+        <i-avatar src="{{avatar}}" i-class="avatar" size="large" />
+        <view class="username">{{username}}</view>
+    </view>
+
+    <view class="card" bindtap="collection">
+        <view class="title-bar">
+            <view class="title">
+                我的收藏
+            </view>
+        </view>
+        <view class="empty-bar" wx:if="{{collections.length === 0}}">
+            <van-empty
+                image="https://img.yzcdn.cn/vant/custom-empty-image.png"
+                description="收藏列表为空"
+            />
+        </view>
+        <view class="image-bar" wx:else>
+            <image src="{{collections[0]}}"/>
+            <image src="{{collections[1]}}"/>
+            <image src="{{collections[2]}}"/>
+        </view>
+    </view>
+
+    <view class="card" bindtap="personalInfo">
+        <view class="title-bar">
+            <view class="title">
+                我的在售
+            </view>
+        </view>
+        <view class="empty-bar" wx:if="{{sells.length === 0}}">
+            <van-empty
+                image="https://img.yzcdn.cn/vant/custom-empty-image.png"
+                description="在售列表为空"
+            />
+        </view>
+        <view class="image-bar" wx:else>
+            <image src="{{sells[0]}}"/>
+            <image src="{{sells[1]}}"/>
+            <image src="{{sells[2]}}"/>
+        </view>
+    </view>
+
+    <view class="setting-bar">
+        <van-cell 
+            title="设置" 
+            is-link 
+            custom-class="setting" 
+            title-class="title"
+            url="/pages/setting/setting"
+        />
+    </view>
+</view>
+
+<i-message id="message" />

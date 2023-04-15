@@ -1,0 +1,88 @@
+<!--pages/trade/trade.wxml-->
+
+<scroll-view class="content">
+    <view class="position-bar">
+        <van-cell-group inset custom-class="card">
+            <van-cell title="交易地点" icon="location-o"
+                value="{{ location.title }}" 
+                isLink bind:click="chooseLocation"
+            />
+            <van-cell title="交易时间" icon="clock-o"
+                value="{{ formattedTime }}"
+                isLink bind:click="chooseTime"
+            />
+        </van-cell-group>
+    </view>
+
+    <view class="commodity">
+        <view class="title">商品信息</view>
+        <view class="commodity-bar">
+            <van-image image-class="image" src="{{commodity.image}}" width="80" height="80" />
+            <view class="com-desc">{{commodity.desc}}</view>
+        </view>
+    </view>
+
+    <view class="trade">
+        <van-tabs active="{{ activeTab }}" color="#39b54a" 
+            bind:change="onTabChange"
+            lazy-render="{{ false }}"
+            id="van-tabs"
+        >
+            <van-tab title="购买" name="buy">
+                <van-field model:value="{{ price }}"
+                    label="出价"
+                    placeholder="请输入出价"
+                    input-align="right"
+                />
+            </van-tab>
+            <van-tab title="交换" name="exchange" wx:if="{{ exchange }}">
+                <view class="exchange">
+                    <van-field model:value="{{ exchangeDesc }}"
+                        label="物品描述"
+                        placeholder="请输入用户交换的物品描述信息"
+                        type="textarea" autosize="{{ { maxHeight: 128 } }}"
+                    />
+                    <view class="uploader">
+                        <van-uploader 
+                            file-list="{{ exchangeImage }}"
+                            deletable multiple
+                            max-count="1"
+                            bind:after-read="readImage"
+                            bind:delete="handleDeleteImage"
+                        />
+                    </view>
+                </view>
+            </van-tab>
+        </van-tabs>
+    </view>
+</scroll-view>
+
+<view class="bottom">
+    <view class="notice">
+        <van-notice-bar 
+            text="建立订单前请先与卖家联系确认详情"
+        />
+    </view>
+    <view class="btn-bar">
+        <van-button custom-class="btn" bind:click="onConfirm">
+            建立订单
+        </van-button>
+    </view>
+    <view class="ios-white" />
+</view>
+
+<van-popup show="{{ showTimePicker }}"
+    position="bottom"
+>
+    <van-datetime-picker
+        title="选择交易时间"
+        type="datetime"
+        value="{{ currentTime }}"
+        min-date="{{ timePicker.minDate }}"
+        max-date="{{ timePicker.maxDate }}"
+        formatter="{{ timeFormatter }}"
+        bind:confirm="onTimeChosen"
+    />
+</van-popup>
+
+<i-message id="message" />

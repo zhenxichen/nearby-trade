@@ -1,0 +1,13 @@
+<!--pages/message/message.wxml-->
+<view class="message-container">
+    <view wx:for="{{ messageList }}" wx:key="index" class="message">
+        <message-bar 
+            avatar="{{ item.avatar }}"
+            name="{{ item.name }}"
+            message="{{ item.message }}"
+            count="{{ item.count }}"
+            uid="{{ item.uid }}"
+        />
+    </view>
+    
+</view>

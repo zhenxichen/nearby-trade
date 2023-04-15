@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "van-cell": "../../dist/vant/cell/index",
+    "van-search": "../../dist/vant/search/index",
+    "van-icon": "../../dist/vant/icon/index",
+    "i-message": "../../dist/iview/message/index",
+    "com-card": "../../components/commodityCard/index"
+  }
+}

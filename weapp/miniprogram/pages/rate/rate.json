@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-rate": "../../dist/vant/rate/index",
+    "van-field": "../../dist/vant/field/index",
+    "van-button": "../../dist/vant/button/index",
+    "i-message": "../../dist/iview/message/index"
+  }
+}

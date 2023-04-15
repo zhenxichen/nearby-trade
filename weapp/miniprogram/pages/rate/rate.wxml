@@ -1,0 +1,26 @@
+<!--pages/rate/rate.wxml-->
+<view class="content">
+    <view class="rate-bar">
+        <van-rate 
+            value="{{ rate }}" 
+            color="#ffd21e"
+            void-icon="star"
+            void-color="#eee"
+            size="{{35}}"
+            bind:change="handleChange" 
+        />
+    </view>
+    <!-- 
+    <view class="input-area">
+        <textarea model:value="{{comment}}"
+            class="input"
+            placeholder="请输入评论"
+        />
+    </view>
+    -->
+    <view class="submit-area">
+        <van-button color="#39b54a" bind:click="handleSubmit">提交</van-button>
+    </view>
+</view>
+
+<i-message id="message" />

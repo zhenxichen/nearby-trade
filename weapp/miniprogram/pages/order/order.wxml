@@ -1,0 +1,34 @@
+<!--pages/order/order.wxml-->
+<van-tabs active="{{ activeTab }}" color="#39b54a"
+    bind:change="handleTabChange">
+    <van-tab title="全部" name="all"></van-tab>
+    <van-tab title="购买" name="buy"></van-tab>
+    <van-tab title="出售" name="sell"></van-tab>
+</van-tabs>
+
+<van-tabs active="{{ statusTab }}" color="#39b54a"
+    bind:change="handleStatusTabChange">
+    <van-tab title="全部" name="all"></van-tab>
+    <van-tab title="待接单" name="waiting"></van-tab>
+    <van-tab title="进行中" name="progress"></van-tab>
+    <van-tab title="已完成" name="finished"></van-tab>
+</van-tabs>
+
+<view class="container">
+    <view wx:for="{{orderList}}" class="order-card">
+        <order-card 
+            orderNo="{{item.orderNo}}"
+            status="{{item.status}}"
+            image="{{item.image}}"
+            title="{{item.title}}"
+            oppositeId="{{item.oppositeId}}"
+            exchange="{{item.exchange}}"
+            rate="{{item.rate}}"
+            price="{{item.price}}"
+            isSeller="{{item.isSeller}}"
+            bind:rate="onRateClick"
+        />
+    </view>
+</view>
+
+<i-message id="message" />

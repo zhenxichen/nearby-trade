@@ -1,0 +1,64 @@
+<!--pages/login/signup.wxml-->
+<view class="title">注册</view>
+
+<view class="input-area">
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ phone }}"
+            placeholder="请输入手机号"
+            type="number"
+            maxlength="11"
+            bindinput="doNothing"
+            bindblur="checkPhone"
+        />
+    </view>
+    <view class="tip">{{ phoneTip }}</view>
+
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ username }}"
+            placeholder="请输入用户名"
+            type="text"
+            bindinput="doNothing"
+        />
+    </view>
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ password }}"
+            placeholder="请输入密码"
+            type="password"
+            maxlength="30"
+            bindinput="doNothing"
+            bindblur="checkPassword"
+        />
+    </view>
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ passwordAgain }}"
+            placeholder="请再次输入密码"
+            type="password"
+            maxlength="30"
+            bindinput="doNothing"
+            bindblur="checkPassword"
+        />
+    </view>
+    <view class="tip">{{ passwordTip }}</view>
+
+</view>
+
+<view class="btn-area">
+    <view class="btn">
+        <van-button type="info" bind:click="signUp"
+            disabled="{{ phoneTip !== '' || passwordTip !== '' || phone === '' || username === '' || password === '' || passwordAgain === '' }}"
+        >
+            注册
+        </van-button>
+    </view>
+    <view class="text-bar">
+        <view class="sign-up" bindtap="backLogin">返回登录</view>
+    </view>
+</view>

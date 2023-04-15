@@ -1,0 +1,5 @@
+/* pages/message/message.wxss */
+
+.message-container {
+  padding-bottom: 50px + env(safe-area-inset-bottom);
+}

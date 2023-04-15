@@ -1,0 +1,4 @@
+.ios-bottom {
+  height: env(safe-area-inset-bottom);
+  background-color: white;
+}

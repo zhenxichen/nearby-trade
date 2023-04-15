@@ -1,0 +1,62 @@
+/* pages/sell/sell.wxss */
+
+page {
+  background-color: white;
+}
+
+.input-area .input {
+  width: calc(100% - 60rpx);
+  height: 680rpx;
+  padding: 30rpx;
+}
+
+.input .placeholder {
+  color: #8799a3;
+}
+
+.upload-area {
+  padding: 30rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.bottom-bar .checkbox {
+  margin-left: 16px;
+}
+
+.value-class {
+  flex: none !important;
+}
+
+.bottom-bar .checkbox-label {
+  font-size: 14px;
+  padding-left: 4px;
+  line-height: 16px;
+}
+
+.bottom-bar .btn-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.bottom-bar .btn-bar .btn {
+  background-color: #39b54a;
+  color: white;
+  width: 120rpx;
+  height: 60rpx;
+  margin: 10rpx 30rpx;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 20rpx;
+}
+
+.bottom-bar .ios-white {
+  width: 100%;
+  height: env(safe-area-inset-bottom);
+}

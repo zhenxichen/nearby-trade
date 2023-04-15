@@ -1,0 +1,37 @@
+/* pages/setting/setting.wxss */
+
+.settings {
+  padding-top: 20rpx;
+  padding-bottom: 50px + env(safe-area-inset-bottom);
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.bottom .content {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  color: #e54d42;
+  font-size: 13px;
+}
+
+.bottom .ios-white {
+  height: env(safe-area-inset-bottom);
+}
+
+.van-dialog__button {
+  width: 90px;
+  margin-left: -15px;
+}
+
+.sms-btn {
+  width: 150rpx;
+  font-size: 11px;
+  font-weight: 500;
+}

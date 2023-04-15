@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "i-cell": "../../dist/iview/cell/index",
+    "i-avatar": "../../dist/iview/avatar/index",
+    "i-message": "../../dist/iview/message/index",
+    "van-image": "../../dist/vant/image/index",
+    "van-icon": "../../dist/vant/icon/index",
+    "van-tag": "../../dist/vant/tag/index",
+    "van-goods-action": "../../dist/vant/goods-action/index",
+    "van-goods-action-icon": "../../dist/vant/goods-action-icon/index",
+    "van-goods-action-button": "../../dist/vant/goods-action-button/index"
+  },
+  "enablePullDownRefresh": true
+}

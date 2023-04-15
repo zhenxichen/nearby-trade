@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "van-cell": "../../dist/vant/cell/index",
+    "van-cell-group": "../../dist/vant/cell-group/index",
+    "van-dialog": "../../dist/vant/dialog/index",
+    "van-field": "../../dist/vant/field/index",
+    "van-button": "../../dist/vant/button/index",
+    "van-count-down": "../../dist/vant/count-down/index",
+    "i-avatar": "../../dist/iview/avatar/index",
+    "i-message": "../../dist/iview/message/index"
+  },
+  "enablePullDownRefresh": true
+}

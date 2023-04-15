@@ -1,0 +1,143 @@
+/* pages/orderDetail/orderDetail.wxss */
+.top {
+  background-color: white;
+  border-bottom: 1px solid #e7ebed;
+  height: 50rpx;
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.top .order-no {
+  padding-left: 10rpx;
+  font-size: 12px;
+}
+
+.top .status {
+  font-size: 14px;
+  color: #39b54a;
+  padding-right: 10rpx;
+}
+
+.seller-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  background-color: white;
+  border-bottom: 1px solid #e7ebed;
+}
+
+.seller-bar .avatar {
+  margin: 15rpx 20rpx;
+}
+
+.seller-bar .name {
+  line-height: 92rpx;
+}
+
+.trade-bar {
+  display: flex;
+  background-color: white;
+  border-bottom: 1px solid #e7ebed;
+  padding: 15rpx;
+}
+
+.trade-bar .icon {
+  background-color: #39b54a;
+  border-radius: 100%;
+  width: 50rpx;
+  height: 50rpx;
+  padding: 10rpx;
+}
+
+.trade-bar .text {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 65rpx;
+  padding-left: 15rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guide {
+  padding-right: 20rpx;
+}
+
+.info-title {
+  background-color: white;
+  padding: 20rpx;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.commodity-bar {
+  display: flex;
+  background-color: white;
+  padding: 15rpx;
+}
+
+.commodity-bar .image {
+  border-radius: 20rpx;
+}
+
+.commodity-bar .com-desc {
+  padding-left: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price-bar {
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+  font-size: 15px;
+  line-height: 52rpx;
+  padding-right: 20rpx;
+}
+
+.price-bar .price {
+  color: #39b54a;
+  font-size: 20px;
+}
+
+.order-info {
+  background-color: white;
+  font-size: 13px;
+  padding: 15rpx;
+}
+
+.bottom-bar {
+  background-color: white;
+  position: fixed;
+	width: 100%;
+	bottom: 0;
+	z-index: 1024;
+}
+
+.bottom-bar .btn-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 15rpx;
+}
+
+.bottom-bar .btn-bar .button {
+  margin-bottom: 10rpx;
+  width: 180rpx;
+  height: 50rpx;
+  font-size: 12px;
+  font-weight: 500;
+  margin-left: 10rpx;
+}
+
+.bottom-bar .ios-white {
+  width: 100%;
+  height: env(safe-area-inset-bottom);
+}

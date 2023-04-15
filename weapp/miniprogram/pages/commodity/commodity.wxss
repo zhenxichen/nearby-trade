@@ -1,0 +1,51 @@
+/* pages/commodity/commodity.wxss */
+
+page {
+  background-color: #FFFFFF;
+  --red: #e54d42;
+  --green: #39b54a;
+}
+
+.seller-info {
+  margin-bottom: 30rpx;
+}
+
+.price-area {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.price-area .price {
+  color: var(--red);
+  margin-right: 30rpx;
+}
+
+.detail {
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.detail .segment {
+  margin-bottom: 10rpx;
+}
+
+.image {
+  margin-bottom: 2rpx;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.map-area {
+  width: 100%;
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom .collected {
+  color: #fbbd08;
+}

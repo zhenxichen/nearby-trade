@@ -1,0 +1,11 @@
+<!-- components/messageBar/index.wxml -->
+<view class="message-bar" bindtap="handleClick">
+    <i-cell title="{{ name }}" label="{{ message }}">
+        <view slot="icon">
+            <i-avatar src="{{ avatar }}"></i-avatar>
+        </view>
+        <view slot="footer">
+            <i-badge count="{{ count }}"></i-badge>
+        </view>
+    </i-cell>
+</view>

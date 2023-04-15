@@ -1,0 +1,78 @@
+/* pages/mine/mine.wxss */
+
+.mine {
+  padding-bottom: 50px + env(safe-area-inset-bottom);
+}
+
+.mine .info-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 30rpx 20rpx 10rpx;
+}
+
+.mine .info-bar .avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 100%;
+}
+
+.mine .info-bar .username {
+  padding-left: 20rpx;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 100rpx;
+  /* 限制最多显示一行 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.mine .card {
+  background-color: white;
+  border-radius: 20rpx;
+  margin: 20rpx;
+  padding: 10rpx;
+}
+
+.mine .card .title-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15rpx;
+}
+
+.mine .card .title-bar .title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.mine .card .image-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx;
+}
+
+.mine .card .image-bar image {
+  width: 180rpx;
+  height: 180rpx;
+  background-color: white;
+  border-radius: 10rpx;
+}
+
+.mine .card .empty-bar {
+  height: 220rpx;       /* 与图片大小相等 */
+}
+
+.mine .setting-bar {
+  padding: 0 20rpx;
+  border-radius: 20rpx;
+}
+
+.mine .setting-bar .setting {
+  border-radius: 20rpx;
+}
+
+.mine .setting-bar .title {
+  font-weight: 600;
+}

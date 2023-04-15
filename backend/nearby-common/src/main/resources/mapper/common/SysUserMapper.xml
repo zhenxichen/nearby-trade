@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxchen.nearby.common.mapper.SysUserMapper">
+
+    <resultMap id="UserResult" type="SysUser">
+        <id property="uid" column="uid" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="phone" column="phone" />
+        <result property="avatar" column="avatar" />
+        <result property="openId" column="open_id" />
+    </resultMap>
+
+    <sql id="selectUserVo">
+        SELECT uid, username, password, phone, avatar, open_id
+        FROM sys_user
+    </sql>
+
+    <select id="selectUserByUid" parameterType="Long" resultMap="UserResult">
+        <include refid="selectUserVo"></include>
+        WHERE uid = #{uid}
+    </select>
+
+    <select id="selectUserByPhone" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"></include>
+        WHERE phone = #{phone}
+    </select>
+
+    <select id="selectUserByOpenId" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"></include>
+        WHERE open_id = #{openId}
+    </select>
+
+    <update id="updateUser" parameterType="SysUser">
+        UPDATE sys_user
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+            <if test="openId != null and openId != ''">open_id = #{openId}</if>
+        </set>
+        WHERE uid = #{uid}
+    </update>
+
+    <insert id="insertUser" parameterType="SysUser">
+        INSERT INTO sys_user (username, password, phone, avatar, open_id)
+        VALUES (#{username}, #{password}, #{phone}, #{avatar}, #{openId})
+    </insert>
+
+    <select id="checkPhoneNumberBound" parameterType="String" resultType="int">
+        SELECT COUNT(1) FROM sys_user
+        WHERE phone = #{phone}
+    </select>
+
+    <select id="checkOpenIdBound" parameterType="String" resultType="int">
+        SELECT COUNT(1) FROM sys_user
+        WHERE open_id = #{openId}
+    </select>
+
+    <update id="unbindWechat" parameterType="Long">
+        UPDATE sys_user
+        SET open_id = null
+        WHERE uid = #{uid}
+    </update>
+
+</mapper>

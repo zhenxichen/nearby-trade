@@ -1,0 +1,85 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxchen.nearby.im.mapper.MessageMapper">
+
+    <resultMap id="MessageListResult" type="com.zxchen.nearby.im.domain.dao.MessageListDao">
+        <id property="opposite" column="opposite" />
+        <result property="type" column="type" />
+        <result property="content" column="content" />
+        <result property="time" column="time" />
+        <result property="avatar" column="avatar" />
+        <result property="username" column="username" />
+        <result property="count" column="count" />
+    </resultMap>
+
+    <insert id="insertMessage" parameterType="com.zxchen.nearby.im.domain.dto.MessageDto"
+            useGeneratedKeys="true" keyProperty="mid" keyColumn="mid">
+        INSERT INTO message (`from`, `to`, `type`, `content`, `time`, `status`)
+        VALUES (#{from}, #{to},
+                #{type, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+                #{content}, #{time}, 0)
+    </insert>
+
+    <select id="selectMessageList" parameterType="Long"
+            resultMap="MessageListResult">
+        SELECT DISTINCT
+            lastest_msg.`opposite` as `opposite`, m.`type` as `type`, m.`content` as `content`,
+            lastest_msg.`time` as `time`,
+            u.`avatar` as `avatar`, u.`username` as `username`,
+            IFNULL(not_read_msg_count.`count`, 0) as `count`
+        FROM message m
+                 JOIN
+                     (SELECT `opposite`, MAX(`time`) as `time` FROM
+                         (SELECT `from` as `opposite`, MAX(`time`) as `time`
+                          FROM message
+                          WHERE `to` = #{uid}
+                          GROUP BY `from`
+                          UNION
+                          SELECT `to` as `opposite`, MAX(`time`) as `time`
+                          FROM message
+                          WHERE `from` = #{uid}
+                          GROUP BY `to`) lastest
+                      GROUP BY `opposite`) lastest_msg
+                 ON (m.`from` = lastest_msg.`opposite` OR m.`to` = lastest_msg.`opposite`)
+                        AND m.`time` = lastest_msg.`time`
+                 JOIN sys_user u ON lastest_msg.`opposite` = u.`uid`
+                 LEFT JOIN
+                     (
+                         SELECT `from`, COUNT(1) as `count`
+                         FROM message
+                         WHERE `to` = #{uid} AND `status` = 0
+                         GROUP BY `from`
+                     ) not_read_msg_count ON lastest_msg.`opposite` = not_read_msg_count.`from`
+        ORDER BY lastest_msg.`time` DESC
+    </select>
+    
+    <select id="selectMessageHistory"
+            parameterType="com.zxchen.nearby.im.domain.dto.MessageHistoryDto"
+            resultType="com.zxchen.nearby.im.domain.dto.MessageDto">
+        SELECT `mid`, `from`, `to`, `type`, `content`, `time`
+        FROM message
+        WHERE ((`from` = #{oppositeId} AND `to` = #{uid}) OR (`from` = #{uid} AND `to` = #{oppositeId}))
+        <if test="last != null"> AND `mid` &gt; #{last} </if>
+        ORDER BY `time` ASC
+    </select>
+
+    <update id="updateMessageRead"
+            parameterType="com.zxchen.nearby.im.domain.dto.MessageHistoryDto">
+        UPDATE message
+        SET `status` = 1
+        WHERE `from` = #{oppositeId} AND `to` = #{uid} AND `status` = 0
+    </update>
+
+    <select id="selectUnreadMessageCount" parameterType="Long" resultType="int">
+        SELECT COUNT(1) FROM message
+        WHERE `to` = #{uid} AND `status` = 0
+    </select>
+
+    <update id="updateMessageReadByMid" parameterType="Long">
+        UPDATE message
+        SET `status` = 1
+        WHERE `mid` = #{mid}
+    </update>
+
+</mapper>

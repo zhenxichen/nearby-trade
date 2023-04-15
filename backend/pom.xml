@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.zxchen</groupId>
+	<artifactId>nearby</artifactId>
+	<version>1.0.0</version>
+	<name>nearby</name>
+	<description>附近交易平台的后端实现</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<druid.version>1.2.8</druid.version>
+		<mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
+		<pagehelper.boot.version>1.3.0</pagehelper.boot.version>
+		<fastjson.version>1.2.76</fastjson.version>
+		<jwt.version>0.9.1</jwt.version>
+		<commons.io.version>2.5</commons.io.version>
+		<commons.pool.version>2.7.0</commons.pool.version>
+		<mysql.connector.version>8.0.27</mysql.connector.version>
+		<nearby.version>1.0.0</nearby.version>
+		<cos.sts.version>3.1.0</cos.sts.version>
+		<sms.version>3.1.270</sms.version>
+	</properties>
+
+	<packaging>pom</packaging>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- SpringBoot的依赖配置-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.2.13.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Druid 数据库连接池 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+			<!-- SpringBoot集成mybatis框架 -->
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring-boot.version}</version>
+			</dependency>
+
+			<!-- pagehelper 分页插件 -->
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper-spring-boot-starter</artifactId>
+				<version>${pagehelper.boot.version}</version>
+			</dependency>
+
+			<!-- Fast JSON 解析器 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<!-- JWT生成与解析 -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jwt.version}</version>
+			</dependency>
+
+			<!-- Commons IO工具类 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-pool2</artifactId>
+				<version>${commons.pool.version}</version>
+			</dependency>
+
+			<!-- MySQL 连接驱动 -->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.version}</version>
+			</dependency>
+
+			<!-- 腾讯云COS临时签名SDK -->
+			<dependency>
+				<groupId>com.qcloud</groupId>
+				<artifactId>cos-sts_api</artifactId>
+				<version>${cos.sts.version}</version>
+			</dependency>
+
+			<!-- 腾讯云 SDK -->
+			<dependency>
+				<groupId>com.tencentcloudapi</groupId>
+				<artifactId>tencentcloud-sdk-java</artifactId>
+				<version>${sms.version}</version>
+			</dependency>
+
+			<!-- 通用模块 -->
+			<dependency>
+				<groupId>com.zxchen</groupId>
+				<artifactId>nearby-common</artifactId>
+				<version>${nearby.version}</version>
+			</dependency>
+
+			<!-- 即时通讯模块 -->
+			<dependency>
+				<groupId>com.zxchen</groupId>
+				<artifactId>nearby-im</artifactId>
+				<version>${nearby.version}</version>
+			</dependency>
+
+			<!-- 交易模块 -->
+			<dependency>
+				<groupId>com.zxchen</groupId>
+				<artifactId>nearby-order</artifactId>
+				<version>${nearby.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+
+	</dependencies>
+
+	<modules>
+		<module>nearby-common</module>
+		<module>nearby-im</module>
+		<module>nearby-order</module>
+		<module>nearby-api</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+</project>

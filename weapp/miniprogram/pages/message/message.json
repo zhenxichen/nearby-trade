@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "message-bar": "../../components/messageBar/index"
+  },
+  "enablePullDownRefresh": true
+}

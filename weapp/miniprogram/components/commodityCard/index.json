@@ -1,0 +1,10 @@
+{
+    "component": true,
+    "usingComponents": {
+        "van-image": "../../dist/vant/image/index",
+        "van-card": "../../dist/vant/card/index",
+        "van-icon": "../../dist/vant/icon/index",
+        "van-cell": "../../dist/vant/cell/index",
+        "i-avatar": "../../dist/iview/avatar/index"
+    }
+}

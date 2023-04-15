@@ -1,0 +1,17 @@
+/* pages/index/index.wxss */
+
+
+.top-bar {
+  width: 100%;
+  height: 196rpx;
+}
+
+.top-bar .location {
+  width: 100%;
+}
+
+.com-container {
+  width: 100%;
+  height: calc(100%-296rpx);
+  padding-bottom: 50px;
+}

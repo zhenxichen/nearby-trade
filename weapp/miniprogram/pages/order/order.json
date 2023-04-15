@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "order-card": "../../components/orderCard/index",
+    "van-tab": "../../dist/vant/tab/index",
+    "van-tabs": "../../dist/vant/tabs/index",
+    "i-message": "../../dist/iview/message/index"
+  },
+  "enablePullDownRefresh": true
+}

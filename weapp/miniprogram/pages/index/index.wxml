@@ -1,0 +1,36 @@
+<!--pages/index/index.wxml-->
+
+<!-- 顶部栏，固定显示 -->
+<view class="top-bar">
+    
+    <view class="location" bindtap="handleLocation">
+        <van-cell title="{{location.title}}" icon="location-o">
+            <van-icon slot="right-icon" name="add" 
+                size="25px" color="#39b54a" 
+                bind:click="handlePub"
+                catchtap="catchTap"
+            />
+        </van-cell>
+    </view>
+
+    <view class="search">
+        <van-search model:value="{{ searchValue }}" 
+            placeholder="请输入搜索关键词"
+            bind:search="handleSearch"
+            bind:cancel="" />
+    </view>
+</view>
+<view class="com-container">
+    <view wx:for="{{ commoditiesList }}" wx:key="index">
+        <com-card 
+            image="{{ item.image }}" 
+            title="{{ item.title }}"
+            avatar="{{ item.avatar }}"
+            seller="{{ item.seller }}"
+            distance="{{ item.distance }}"
+            comNumber="{{ item.no }}"
+        />
+    </view>
+</view>
+
+<i-message id="message" />

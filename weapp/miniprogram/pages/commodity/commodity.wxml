@@ -1,0 +1,84 @@
+<!--pages/commodity/commodity.wxml-->
+
+<i-message id="message" />
+
+<view class="content">
+    <!-- 卖家信息 -->
+    <view class="seller-info" bindtap="sellerInfo">
+        <i-cell title="{{ name }}" label="{{ time }}">
+            <view slot="icon">
+                <i-avatar src="{{ avatar }}"></i-avatar>
+            </view>
+        </i-cell>
+    </view>
+
+    <!-- 价格信息 -->
+    <view class="price-area">
+        <view class="price">￥{{price}}</view>
+        <view class="exchange-tag" wx:if="{{ couldExchange }}">
+            <van-tag color="#39b54a">换</van-tag>
+        </view>
+    </view>
+
+    <!-- 描述信息 -->
+    <view class="detail">
+        <view class="segment" wx:for="{{ segments }}">
+            <text>{{ item }}</text>
+        </view>
+    </view>
+
+    <!-- 商品图片 -->
+    <view class="image-area">
+        <view class="image" wx:for="{{ imageList }}">
+            <image src="{{ item }}" data-src="{{ item }}" 
+                bindtap="onImageClick" 
+                mode="aspectFit"
+            />
+        </view>
+    </view>
+
+    <view class="map-area" wx:if="{{ location !== undefined }}">
+        <map 
+            longitude="{{ location.lng }}" latitude="{{ location.lat }}"
+            markers="{{ marker }}"
+            enable-scroll="{{ false }}"
+            bindtap="onMapClick"
+        />
+    </view>
+</view>
+
+<view class="bottom" wx:if="{{ !offShelf }}">
+    <van-goods-action>
+        <van-goods-action-icon icon="chat-o" text="联系" 
+            wx:if="{{ !isSeller }}"
+            bind:click="contact"
+        />
+        <van-goods-action-icon icon="edit" text="编辑" 
+            wx:if="{{ isSeller }}"
+            bind:click="edit"
+        />
+
+        <van-goods-action-icon text="取消收藏" icon="star"
+            wx:if="{{ collected }}"
+            icon-class="collected"
+            bind:click="cancelCollect"
+        />
+        <van-goods-action-icon text="收藏" icon="star-o"
+            wx:else
+            bind:click="collect"
+        />
+
+        <van-goods-action-button text="交换" color="#8dc63f" 
+            wx:if="{{ !isSeller && couldExchange }}"
+            bind:click="exchange"
+        />
+        <van-goods-action-button text="购买" color="#39b54a" 
+            wx:if="{{ !isSeller }}"
+            bind:click="buy"
+        />
+        <van-goods-action-button text="下架商品" color="#39b54a"
+            wx:if="{{ isSeller }}"
+            bind:click="drop"
+        />
+    </van-goods-action>
+</view>

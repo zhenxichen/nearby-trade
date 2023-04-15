@@ -1,0 +1,14 @@
+/* pages/login/signup.wxss */
+
+@import './login.wxss';
+
+.input-area {
+  padding-top: 100rpx;
+}
+
+.input-area .tip {
+  color: #e54d42;
+  font-size: 13px;
+  padding-left: 90rpx;
+}
+

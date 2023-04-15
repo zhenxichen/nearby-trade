@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-field": "../../dist/vant/field/index",
+    "van-cell": "../../dist/vant/cell/index",
+    "van-icon": "../../dist/vant/icon/index",
+    "van-button": "../../dist/vant/button/index",
+    "van-uploader": "../../dist/vant/uploader/index",
+    "van-checkbox": "../../dist/vant/checkbox/index",
+    "i-message": "../../dist/iview/message/index"
+  }
+}

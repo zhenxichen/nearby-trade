@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "van-image": "../../dist/vant/image/index",
+        "van-button": "../../dist/vant/button/index",
+        "van-tag": "../../dist/vant/tag/index"
+    }
+}

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxchen.nearby.order.mapper.OrderMapper">
+
+    <resultMap id="OrderListResult"
+               type="com.zxchen.nearby.order.domain.dao.OrderListDao">
+        <id property="oid" column="oid" />
+        <result property="buyer" column="buyer" />
+        <result property="seller" column="seller" />
+        <result property="status" column="status"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderStatusTypeHandler" />
+        <result property="image" column="image" />
+        <result property="description" column="description" />
+        <result property="type" column="type"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderTypeHandler" />
+        <result property="price" column="price" />
+        <result property="rated" column="rated"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderRateTypeHandler" />
+    </resultMap>
+
+    <resultMap id="OrderResult" type="com.zxchen.nearby.order.domain.po.Order">
+        <id property="oid" column="oid" />
+        <result property="cid" column="cid" />
+        <result property="type" column="type"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderTypeHandler" />
+        <result property="createTime" column="create_time" />
+        <result property="tradeTime" column="trade_time" />
+        <result property="finishTime" column="finish_time" />
+        <result property="status" column="status"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderStatusTypeHandler" />
+        <result property="rated" column="rated"
+                typeHandler="com.zxchen.nearby.order.enums.handler.OrderRateTypeHandler" />
+        <result property="buyer" column="buyer" />
+        <result property="seller" column="seller" />
+        <result property="latitude" column="latitude" />
+        <result property="longitude" column="longitude" />
+        <result property="locationTitle" column="location_title" />
+        <result property="locationAddress" column="location_address" />
+        <result property="price" column="price" />
+        <result property="exchangeDescription" column="exchange_description" />
+        <result property="exchangeImage" column="exchange_image" />
+    </resultMap>
+
+    <select id="selectOrderList"
+            parameterType="com.zxchen.nearby.order.domain.dto.OrderListQueryDto"
+            resultMap="OrderListResult">
+        SELECT o.oid as `oid`, o.`buyer` as `buyer`, o.`seller` as `seller`, o.`status` as `status`,
+               SUBSTRING_INDEX(c.images, ';', 1) as `image`, c.`description` as `description`,
+               o.`type` as `type`, o.`price` as `price`, o.`rated` as `rated`
+        FROM orders o
+        JOIN commodity c ON o.cid = c.cid
+        WHERE
+            <if test="role == null">(o.`buyer` = #{uid} OR o.`seller` = #{uid})</if>
+            <if test="role == @com.zxchen.nearby.order.enums.OrderRole@BUYER">
+                (o.`buyer` = #{uid})
+            </if>
+            <if test="role == @com.zxchen.nearby.order.enums.OrderRole@SELLER">
+                (o.`seller` = #{uid})
+            </if>
+            <if test="status != null">
+                AND o.`status` = #{status, typeHandler=com.zxchen.nearby.order.enums.handler.OrderStatusTypeHandler}
+            </if>
+        ORDER BY o.create_time DESC
+    </select>
+
+    <insert id="insertOrder"
+            parameterType="com.zxchen.nearby.order.domain.po.Order">
+        INSERT INTO orders (oid, cid, type, create_time, trade_time, status,
+                            rated, buyer, seller, location_point, location_title,
+                            location_address, price, exchange_description, exchange_image)
+        VALUES (#{oid}, #{cid}, #{type, typeHandler=com.zxchen.nearby.order.enums.handler.OrderTypeHandler},
+                NOW(), #{tradeTime}, 0, 0, #{buyer}, #{seller}, POINT(#{longitude}, #{latitude}), #{locationTitle},
+                #{locationAddress}, #{price}, #{exchangeDescription}, #{exchangeImage})
+    </insert>
+
+    <select id="selectOrderByOid" parameterType="Long" resultMap="OrderResult">
+        SELECT oid, cid, type, create_time, trade_time, finish_time, status,
+               rated, buyer, seller, ST_Y(location_point) as `latitude`, ST_X(location_point) as `longitude`,
+               location_title, location_address, price, exchange_description, exchange_image
+        FROM orders
+        WHERE oid = #{oid}
+    </select>
+
+    <update id="updateOrder" parameterType="com.zxchen.nearby.order.domain.po.Order">
+        UPDATE orders
+        <set>
+            <if test="cid != null and cid != 0">cid = #{cid},</if>
+            <if test="type != null">
+                type = #{type, typeHandler=com.zxchen.nearby.order.enums.handler.OrderTypeHandler},
+            </if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="tradeTime != null">trade_time = #{tradeTime},</if>
+            <if test="finishTime != null">finish_time = #{finishTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="rated != null">rated = #{rated},</if>
+            <if test="buyer != null and buyer != 0">buyer = #{buyer},</if>
+            <if test="seller != null and seller != 0">seller = #{seller},</if>
+            <if test="locationTitle != null and locationTitle != ''">
+                location_title = #{locationTitle},
+            </if>
+            <if test="locationAddress != null and locationAddress != ''">
+                location_address = #{locationAddress},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="exchangeDescription != null and exchangeDescription != ''">
+                exchange_description = #{exchangeDescription},
+            </if>
+            <if test="exchangeImage != null">
+                exchange_image = #{exchangeImage}
+            </if>
+        </set>
+        WHERE oid = #{oid}
+    </update>
+
+    <update id="updateOtherOrderToBeClosed" parameterType="com.zxchen.nearby.order.domain.po.Order">
+        UPDATE orders
+        SET `status` = 3
+        WHERE cid = #{cid} AND oid != #{oid}
+    </update>
+
+    <update id="updateRelatedOrderToBeClosed" parameterType="Long">
+        UPDATE orders
+        SET `status` = 3
+        WHERE cid = #{cid} AND `status` = 0
+    </update>
+
+</mapper>

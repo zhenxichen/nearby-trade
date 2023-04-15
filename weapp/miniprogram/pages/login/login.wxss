@@ -1,0 +1,57 @@
+/* pages/login/login.wxss */
+
+page {
+  background-color: white;
+  --green: #39b54a;
+  --blue: #0081ff;
+  --grey: #8799a3;
+}
+
+.title {
+  padding: 100rpx 0 0 56rpx;
+  font-size: 26px;
+  font-family: 'PingFangSC-bold';
+}
+
+.input-area {
+  padding-top: 200rpx;
+}
+
+.input-area .input-view {
+  margin: 34rpx 56rpx;
+  background-color: #F8F8F8;
+  padding-left: 34rpx;
+  padding-right: 34rpx;
+  border-radius: 10rpx;
+}
+
+.input-area .input-view .input {
+  background-color: #F8F8F8;
+  height: 90rpx;
+}
+
+.btn-area {
+  padding-top: 50rpx;
+}
+
+.btn-area .btn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.btn-area .text-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 56rpx;
+}
+
+.btn-area .text-bar .sign-up {
+  color: var(--blue);
+  font-size: 13px;
+}
+
+.btn-area .text-bar .forget {
+  color: var(--grey);
+  font-size: 13px;
+}

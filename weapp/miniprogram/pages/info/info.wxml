@@ -1,0 +1,64 @@
+<!--pages/info/info.wxml-->
+<view class="top-bar">
+    <view class="avatar">
+        <i-avatar i-class="i-avatar" src="{{ avatar }}" size="large"></i-avatar>
+    </view>
+    <view class="username">
+        {{ username }}
+    </view>
+    <view class="rate">
+        <van-rate
+            value="{{ rate }}"
+            size="{{ 20 }}"
+            color="#ffd21e"
+            gutter="{{ 0 }}"
+            void-icon="star"
+            void-color="#eee"
+            allow-half
+            readonly
+        />
+    </view>
+    <view class="uid">
+        <image src="../../images/id.png" class="icon"></image>
+        <view class="text">{{ uid }}</view>
+    </view>
+</view>
+
+<view class="info">
+    <van-tabs sticky 
+        active="{{ activeTab }}"
+        color="#39b54a"
+        id="van-tabs"
+    >
+        <van-tab title="在售" name="onsell">
+            <view wx:for="{{ sellingList }}" wx:key="index">
+                <com-card 
+                    image="{{ item.image }}" 
+                    title="{{ item.title }}"
+                    avatar="{{ item.avatar }}"
+                    seller="{{ item.seller }}"
+                    distance="{{ myself ? '' : item.distance }}"
+                    comNumber="{{ item.no }}"
+                />
+            </view>
+        </van-tab>
+        <van-tab title="收藏" name="collection"
+            wx:if="{{ myself }}"
+        >
+            <view class="collections"
+                wx:for="{{ collectionList }}" wx:key="index"
+            >
+                <com-card 
+                    image="{{ item.image }}" 
+                    title="{{ item.title }}"
+                    avatar="{{ item.avatar }}"
+                    seller="{{ item.seller }}"
+                    distance="{{ item.distance }}"
+                    comNumber="{{ item.no }}"
+                />
+            </view>
+        </van-tab>
+    </van-tabs>
+</view>
+
+<i-message id="message" />

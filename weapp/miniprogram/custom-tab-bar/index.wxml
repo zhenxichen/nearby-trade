@@ -1,0 +1,12 @@
+<!--miniprogram/custom-tab-bar/index.wxml-->
+
+<view class="tab-bar">
+    <i-tab-bar current="{{ current }}" bindchange="handleChange" color="#3cc51f">
+        <i-tab-bar-item key="homepage" icon="homepage" current-icon="homepage_fill" title="首页"></i-tab-bar-item>
+        <i-tab-bar-item key="message" icon="message" current-icon="message_fill"
+            title="消息" dot="{{messageDot}}" count="{{messageCount}}"></i-tab-bar-item>
+        <i-tab-bar-item key="order" icon="barrage" current-icon="barrage_fill" title="订单"></i-tab-bar-item>
+        <i-tab-bar-item key="mine" icon="mine" current-icon="mine_fill" title="我的"></i-tab-bar-item>
+    </i-tab-bar>
+    <view class="ios-bottom"></view>  
+</view>                

@@ -1,0 +1,52 @@
+/* components/commodityCard/index.wxss */
+
+.commodity-card {
+  width: 100%;
+  border-radius: 8%;
+  background-color: white;
+  margin-top: 20rpx;
+}
+
+.title-container {
+  margin-top: 20rpx;
+}
+
+.title {
+  font-weight: bolder;
+  font-size: larger;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.seller-container {
+  margin-bottom: 10rpx;
+  width: 50%;
+  display: flex;
+}
+
+.seller-name {
+  padding-left: 10rpx;
+  padding-top: 5rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.distance-container {
+  display: flex;
+}
+
+.distance {
+  margin-left: 5rpx;
+  margin-top: auto;
+  font-size: smaller;
+}

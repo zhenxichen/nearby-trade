@@ -1,0 +1,9 @@
+/* pages/order/order.wxss */
+
+.container {
+  padding-bottom: 50px + env(safe-area-inset-bottom);
+}
+
+.order-card {
+  width: calc(100% - 10px);
+}

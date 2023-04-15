@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxchen.nearby.order.mapper.CollectionMapper">
+
+    <resultMap id="CommodityListResult" type="com.zxchen.nearby.order.domain.dao.CommodityListDao">
+        <id property="cid" column="cid" />
+        <result property="image" column="image" />
+        <result property="title" column="title" />
+        <result property="sellerId" column="seller_id" />
+        <result property="sellerName" column="seller_name" />
+        <result property="sellerAvatar" column="seller_avatar" />
+        <result property="distance" column="distance" />
+    </resultMap>
+
+    <select id="checkIsCollected"
+            parameterType="com.zxchen.nearby.order.domain.dao.CollectionDao"
+            resultType="int">
+        SELECT COUNT(1) FROM collection
+        WHERE uid = #{uid} AND cid = #{cid}
+    </select>
+
+    <insert id="insertCollection" parameterType="com.zxchen.nearby.order.domain.dao.CollectionDao">
+        INSERT INTO collection (`uid`, `cid`)
+        VALUES (#{uid}, #{cid})
+    </insert>
+
+    <delete id="deleteCollection" parameterType="com.zxchen.nearby.order.domain.dao.CollectionDao">
+        DELETE FROM collection
+        WHERE uid = #{uid} AND cid = #{cid}
+    </delete>
+
+    <select id="selectCollectionList"
+            parameterType="com.zxchen.nearby.order.domain.dto.CollectionListDto"
+            resultMap="CommodityListResult">
+        SELECT c.`cid`                                                                  as `cid`,
+               SUBSTRING_INDEX(c.images, ';', 1)                                        as `image`,
+               SUBSTRING(c.`description`, 1, 50)                                        as `title`,
+               u.uid                                                                    as `seller_id`,
+               u.username                                                               as `seller_name`,
+               u.avatar                                                                 as `seller_avatar`,
+               ST_DISTANCE_SPHERE(POINT(#{longitude}, #{latitude}), c.`location_point`) as `distance`
+        FROM (
+                 SELECT uid, cid, collect_time
+                 FROM collection
+                 WHERE uid = #{uid}
+             ) col
+                 JOIN commodity c ON col.cid = c.cid
+                 JOIN sys_user u ON c.seller_id = u.uid
+        ORDER BY col.collect_time DESC
+    </select>
+
+    <select id="selectCollectionImages" parameterType="Long" resultType="String">
+        SELECT SUBSTRING_INDEX(c.images, ';', 1)
+        FROM collection col
+                 JOIN commodity c ON col.cid = c.cid
+        WHERE col.uid = #{uid}
+        ORDER BY col.collect_time DESC
+        LIMIT 3
+    </select>
+
+    <delete id="deleteCollectionByCid" parameterType="Long">
+        DELETE FROM collection
+        WHERE cid = #{cid}
+    </delete>
+
+</mapper>

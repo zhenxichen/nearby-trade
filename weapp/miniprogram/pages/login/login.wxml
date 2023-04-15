@@ -1,0 +1,43 @@
+<!--pages/login/login.wxml-->
+<view class="title">
+    <text>
+        登录
+    </text>
+</view>
+
+<view class="input-area">
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ phone }}"
+            placeholder="请输入手机号"
+            type="number"
+            bindinput="doNothing"
+        />
+    </view>
+
+    <view class="input-view">
+        <input
+            class="input"
+            model:value="{{ password }}"
+            placeholder="请输入密码"
+            type="password"
+            bindinput="doNothing"
+        />
+    </view>
+</view>
+
+<view class="btn-area">
+    <view class="btn">
+        <van-button type="info" bind:click="login">登录</van-button>
+    </view>
+    <view class="btn">
+        <van-button icon="wechat" color="#39b54a" bind:click="wechatLogin">
+            微信快捷登录
+        </van-button>
+    </view>
+    <view class="text-bar">
+        <view class="sign-up" bindtap="signUp">立即注册</view>
+        <view class="forget" bindtap="forget">忘记密码？</view>
+    </view>
+</view>

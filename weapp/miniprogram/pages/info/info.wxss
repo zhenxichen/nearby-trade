@@ -1,0 +1,56 @@
+/* pages/info/info.wxss */
+
+page {
+  background-color: white;
+}
+
+.top-bar {
+  width: 100%;
+}
+
+.top-bar .avatar {
+  padding: 30rpx 0 10rpx;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.top-bar .username {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.top-bar .avatar .i-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+}
+
+.top-bar .rate {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.top-bar .uid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10rpx 0;
+}
+
+.top-bar .uid .icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.top-bar .uid .text {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.info .collections {
+  touch-action: none;
+}
